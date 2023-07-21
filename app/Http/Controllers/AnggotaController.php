@@ -21,8 +21,7 @@ class AnggotaController extends Controller
 
         $userIdsTerdaftar = Anggota::pluck('user_id')->toArray();
         $user = User::whereNotIn('id', $userIdsTerdaftar)->where('role', 0)->get();
-        // $user = User::where('role', 0)->get();
-        // $user = Anggota::whereDoesntHave('user')->get();
+       
         return view('pages.anggota.create', compact('user'));
     }
 
@@ -76,9 +75,7 @@ class AnggotaController extends Controller
 
     public function update(Request $request, $id)
     {
-        // $data = $request->all();
-        // $anggota = Anggota::findOrFail($id);
-        // $anggota->update($data);
+       
 
         $this->validate($request, [
             'nama' => 'required',

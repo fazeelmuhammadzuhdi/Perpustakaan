@@ -30,15 +30,16 @@ CREATE TABLE `anggotas` (
   `user_id` bigint(20) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `kelas` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `anggotas_nisn_unique` (`nisn`),
   KEY `anggotas_user_id_foreign` (`user_id`),
   CONSTRAINT `anggotas_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `anggotas` */
 
-insert  into `anggotas`(`id`,`nisn`,`nama`,`jk`,`no_hp`,`alamat`,`user_id`,`created_at`,`updated_at`) values (1,'1122334455','ANTO','P','0894','Est magna maxime pa',1,'2023-05-09 07:37:57','2023-05-09 08:48:27'),(7,'01731471841','Voluptatibus a volup','L','Do recusandae Dolor','A saepe molestiae id',8,'2023-05-10 03:32:06','2023-05-13 13:45:35'),(8,'0101010101','bo bo boy','L','235252352','Jl.Binjai',9,'2023-05-31 14:31:15','2023-05-31 14:31:15'),(9,'235235325325','Intan Herma','P','034683468783','Jl.sghsgs',11,'2023-06-10 08:03:56','2023-06-10 08:03:56');
+insert  into `anggotas`(`id`,`nisn`,`nama`,`jk`,`no_hp`,`alamat`,`user_id`,`created_at`,`updated_at`,`kelas`) values (1,'1122334455','ANTO','P','0894','Est magna maxime pa',1,'2023-05-09 07:37:57','2023-05-09 08:48:27','7B'),(7,'01731471841','Ucok','L','098765432','A saepe molestiae id',8,'2023-05-10 03:32:06','2023-05-13 13:45:35','7C'),(8,'0101010101','bo bo boy','L','235252352','Jl.Binjai',9,'2023-05-31 14:31:15','2023-05-31 14:31:15','8A'),(9,'235235325325','Intan Herma','P','034683468783','Jl.sghsgs',11,'2023-06-10 08:03:56','2023-06-10 08:03:56','9A'),(10,'124112412','Marion','L','082752','Jl.adada',10,'2023-07-12 11:00:22','2023-07-12 11:00:22','8B'),(11,'2424424242','Marion Putra','L','08173131378','Jl.Permata Harbaindo',12,'2023-07-12 14:54:10','2023-07-12 14:54:10','7A');
 
 /*Table structure for table `books` */
 
@@ -62,7 +63,7 @@ CREATE TABLE `books` (
 
 /*Data for the table `books` */
 
-insert  into `books`(`id`,`jenis_buku_id`,`judul_buku`,`no_isbn`,`tahun_terbit`,`penerbit_buku`,`pengarang_buku`,`rak_buku_id`,`jumlah_buku`,`gambar`,`created_at`,`updated_at`) values (2,'2','Ut totam et nisi fug','Laboriosam corporis','2023','Quisquam in pariatur','Molestiae rerum dolo','7','175','CKVyhl8RZwlpTrf3Ng07auHuRRJWAamyRmPf33oP.png','2023-05-08 10:04:35','2023-05-08 10:07:35'),(3,'3','Ab deserunt eum et s','Sit maiores laudanti','2024','Ipsum tempora in mag','Error facilis minim','7','92','62UVhwYvXJ3IrLGwIhRcKNqIEJj0TiKJbwZTFHlu.png','2023-05-10 06:56:03','2023-05-10 06:57:00'),(4,'2','Kancil dan Ayam','ISBN-0121','2024','UDIN','AJO','7','104','xm65JDg6pcvaaZQGJYrjpoknhyZdTCYgojlkpwwz.png','2023-05-13 12:35:09','2023-05-13 12:35:09'),(5,'2','Kancil dan Ayam','ISBN-012124242','2022','Salemba Empat','Marshal','7','100','o4WgrJt3QEQxY6tmjylsXzimIqgwZquDh2GGlW1d.png','2023-06-10 08:02:39','2023-06-10 08:02:39');
+insert  into `books`(`id`,`jenis_buku_id`,`judul_buku`,`no_isbn`,`tahun_terbit`,`penerbit_buku`,`pengarang_buku`,`rak_buku_id`,`jumlah_buku`,`gambar`,`created_at`,`updated_at`) values (2,'2','Laskar Pelangi','979-3062-79-7','2005','Yogyakarta','Andrea Hirata','7','166','wTFRKIpwxiIT0WNUWZNt9sjB4x5VUV6UwlW9ulj3.jpg','2023-05-08 10:04:35','2023-07-13 00:37:57'),(3,'3','Hujan','978-602-03-2478-4','2016','Jakarta PT. Gramedia Pustaka Utama','Tere Liye','7','86','Upvzyw0zvXUJgHlSx8Yd8U5GPBVjoX1T2A9yy3aW.jpg','2023-05-10 06:56:03','2023-07-13 00:12:07'),(4,'2','Marmut merah jambu','602-8066-64-8','2010','Jakarta','Raditya Dika','7','101','7LUI18k7c6Sj7NzEsy9noMHCBIWAlV3wjmhGTj5z.jpg','2023-05-13 12:35:09','2023-07-13 00:15:07'),(5,'4','Kancil dan Buaya','ISBN-012124242','2016','Bestari Buana Murni','Rahimidin Zahari & Jaatar Taib','7','98','g78gE1YL0oSipBQK72JwEyf6AbJb1v9ccIuBtAqh.jpg','2023-06-10 08:02:39','2023-07-13 00:19:27');
 
 /*Table structure for table `detail_peminjaman` */
 
@@ -79,11 +80,9 @@ CREATE TABLE `detail_peminjaman` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `detail_peminjaman` */
-
-insert  into `detail_peminjaman`(`id`,`id_peminjaman`,`id_buku_pinjam`,`isbn_buku`,`judul_buku`,`jumlah_buku`,`status`,`created_at`,`updated_at`) values (1,1,'2','Laboriosam corporis','Ut totam et nisi fug','1','1',NULL,NULL),(2,1,'3','Sit maiores laudanti','Ab deserunt eum et s','1','1',NULL,NULL),(3,2,'2','Laboriosam corporis','Ut totam et nisi fug','1','0',NULL,NULL),(4,2,'3','Sit maiores laudanti','Ab deserunt eum et s','1','0',NULL,NULL),(5,4,'5','ISBN-012124242','Kancil dan Ayam','1','1',NULL,NULL),(6,4,'3','Sit maiores laudanti','Ab deserunt eum et s','1','1',NULL,NULL);
 
 /*Table structure for table `failed_jobs` */
 
@@ -114,11 +113,11 @@ CREATE TABLE `jenis_bukus` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `jenis_bukus` */
 
-insert  into `jenis_bukus`(`id`,`name`,`slug`,`created_at`,`updated_at`) values (2,'Comic','comic','2023-05-07 14:16:51','2023-05-07 14:16:51'),(3,'Comedy','comedy','2023-05-08 02:22:38','2023-05-08 02:22:38');
+insert  into `jenis_bukus`(`id`,`name`,`slug`,`created_at`,`updated_at`) values (2,'Comic','comic','2023-05-07 14:16:51','2023-05-07 14:16:51'),(3,'Comedy','comedy','2023-05-08 02:22:38','2023-05-08 02:22:38'),(4,'Cerita Anak','cerita-anak','2023-07-13 00:18:23','2023-07-13 00:18:23');
 
 /*Table structure for table `migrations` */
 
@@ -161,11 +160,9 @@ CREATE TABLE `peminjaman` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `peminjaman` */
-
-insert  into `peminjaman`(`id`,`kode_peminjaman`,`tgl_pinjam`,`tgl_kembali`,`id_anggota_peminjaman`,`created_at`,`updated_at`) values (1,'20230604143118574','2023-06-04','2023-09-04','1',NULL,NULL),(2,'20230604143140963','2023-06-04','2023-09-04','8',NULL,NULL),(4,'20230610080531590','2023-05-01','2023-06-01','9',NULL,NULL);
 
 /*Table structure for table `peminjaman_temp` */
 
@@ -179,7 +176,7 @@ CREATE TABLE `peminjaman_temp` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `peminjaman_temp` */
 
@@ -198,11 +195,9 @@ CREATE TABLE `pengembalians` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `pengembalians` */
-
-insert  into `pengembalians`(`id`,`id_anggota`,`id_buku`,`qty`,`tanggal_pengembalian`,`jumlah_hari_terlambat`,`denda`,`created_at`,`updated_at`) values (1,'1','2','1','2023-06-04','0','0',NULL,NULL),(2,'1','3','1','2023-06-04','0','0',NULL,NULL),(3,'9','5','1','2023-06-10','9','9000',NULL,NULL),(4,'9','3','1','2023-06-10','9','9000',NULL,NULL);
 
 /*Table structure for table `personal_access_tokens` */
 
@@ -260,11 +255,11 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`name`,`email`,`email_verified_at`,`password`,`role`,`remember_token`,`created_at`,`updated_at`) values (1,'Anggota','anggota@gmail.com',NULL,'$2y$10$R7MdWvCNtCAHMjft7zemXOVMxUuWDz85GKdPoLZjGezExWdfp.gvW',0,NULL,'2023-05-07 14:00:22','2023-05-08 04:02:28'),(2,'Admin','admin@gmail.com',NULL,'$2y$10$ZExBzWKFxgYXeeOEs5a.uuTWqZQ92.9JPxdMTMLX2nm7VxdoZQtkq',1,NULL,'2023-05-07 14:00:22','2023-05-07 14:00:22'),(3,'Pimpinan','pimpinan@gmail.com',NULL,'$2y$10$iVebGrxIPYYz0ktI7zpPGOdmQYBVM3FokSQj30PhfOxmVSskZhf2S',2,NULL,'2023-05-07 14:00:22','2023-05-07 14:00:22'),(8,'Echo Tate','bulix@mailinator.com',NULL,'$2y$10$9p6BK9OV06UiKAJC.omxUO62upBgzy2H5sSXXKBImzB4wWTpPpTx6',0,NULL,'2023-05-09 07:41:58','2023-05-18 10:28:16'),(9,'ucok','ucok@gmail.com',NULL,'$2y$10$TwGiJ3aWVxn0rWQ70Nr4R.driY9RF51fW1p5p0ti2ubBtXLU5hVT.',0,NULL,'2023-05-31 14:07:56','2023-05-31 14:07:56'),(10,'Abbot Bonner','a@gmail.com',NULL,'$2y$10$fyrHmqy6qnUR9RYaSfPR2eX9jklk0y.T9L0w7i.diqIbV8WyEbsm2',0,NULL,'2023-05-31 14:11:38','2023-05-31 14:11:38'),(11,'intan','intan@gmail.com',NULL,'$2y$10$u4uPiPqsBHVw2hPUb36/GeEtDgObs/gAKSSMd0C5BBny7d63.FFze',0,NULL,'2023-06-10 08:03:16','2023-06-10 08:03:16');
+insert  into `users`(`id`,`name`,`email`,`email_verified_at`,`password`,`role`,`remember_token`,`created_at`,`updated_at`) values (1,'Anggota','anggota@gmail.com',NULL,'$2y$10$R7MdWvCNtCAHMjft7zemXOVMxUuWDz85GKdPoLZjGezExWdfp.gvW',0,NULL,'2023-05-07 14:00:22','2023-05-08 04:02:28'),(2,'Admin','admin@gmail.com',NULL,'$2y$10$ZExBzWKFxgYXeeOEs5a.uuTWqZQ92.9JPxdMTMLX2nm7VxdoZQtkq',1,NULL,'2023-05-07 14:00:22','2023-05-07 14:00:22'),(3,'Pimpinan','pimpinan@gmail.com',NULL,'$2y$10$iVebGrxIPYYz0ktI7zpPGOdmQYBVM3FokSQj30PhfOxmVSskZhf2S',2,NULL,'2023-05-07 14:00:22','2023-05-07 14:00:22'),(8,'Echo Tate','bulix@mailinator.com',NULL,'$2y$10$9p6BK9OV06UiKAJC.omxUO62upBgzy2H5sSXXKBImzB4wWTpPpTx6',0,NULL,'2023-05-09 07:41:58','2023-05-18 10:28:16'),(9,'ucok','ucok@gmail.com',NULL,'$2y$10$ZExBzWKFxgYXeeOEs5a.uuTWqZQ92.9JPxdMTMLX2nm7VxdoZQtkq',0,NULL,'2023-05-31 14:07:56','2023-05-31 14:07:56'),(10,'Abbot Bonner','a@gmail.com',NULL,'$2y$10$fyrHmqy6qnUR9RYaSfPR2eX9jklk0y.T9L0w7i.diqIbV8WyEbsm2',0,NULL,'2023-05-31 14:11:38','2023-05-31 14:11:38'),(11,'intan','intan@gmail.com',NULL,'$2y$10$u4uPiPqsBHVw2hPUb36/GeEtDgObs/gAKSSMd0C5BBny7d63.FFze',0,NULL,'2023-06-10 08:03:16','2023-06-10 08:03:16'),(12,'tivulocako','ab@gmail.com',NULL,'$2y$10$ngAbe0uuavmlrkObMXCJq.jNoITtONStvQvjXRExfzIe2lU8kNuIq',0,NULL,'2023-07-12 14:54:10','2023-07-12 14:54:10');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
