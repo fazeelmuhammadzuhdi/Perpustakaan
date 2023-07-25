@@ -51,7 +51,7 @@
                                                     <td>{{ $data->penerbit_buku }}</td>
                                                     <td>{{ $data->tahun_terbit }}</td>
                                                     <td>{{ $data->jumlah_buku }}</td>
-                                                    <td>{{ $data->status }}</td>
+                                                    <td>{{ $data->status == 0 ? 'DiPinjam' : 'Dikembalikan' }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

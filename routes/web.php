@@ -12,6 +12,7 @@ use App\Http\Controllers\RiwayatPinjamBukuAnggota;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DaftarBukuController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PembayaranDendaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,7 @@ Route::prefix('admin')->middleware(['auth', 'user-role:admin,pimpinan'])->group(
 
     Route::resource('buku', BookController::class);
     Route::resource('anggota', AnggotaController::class);
+    Route::resource('pembayarandenda', PembayaranDendaController::class);
 
     //Jenis Buku
     Route::controller(JenisBukuController::class)->group(function () {
@@ -106,6 +108,7 @@ Route::prefix('admin')->middleware(['auth', 'user-role:admin,pimpinan'])->group(
         Route::get('/laporan-riwayat-peminjaman', 'riwayatPeminjaman')->name('riwayat-peminjaman');
         Route::post('laporan-peminjaman-buku', 'laporanPeminjamanBuku')->name('peminjaman-buku');
         Route::post('laporan-pengembalian-buku', 'laporanPengembalianBuku')->name('pengembalian-buku');
+        Route::post('laporan-pembayaran-denda', 'laporanPembayaranDenda')->name('pembayaran-denda');
     });
 });
 

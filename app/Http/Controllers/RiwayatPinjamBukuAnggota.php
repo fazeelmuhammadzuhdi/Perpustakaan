@@ -81,6 +81,7 @@ class RiwayatPinjamBukuAnggota extends Controller
         // Kodingan Pengembalian Buku yang Sudah Fix
         $pengembalian = DB::table('pengembalians')
             ->join('books', 'books.id', '=', 'pengembalians.id_buku')
+            ->leftjoin('pembayaran_dendas', 'pengembalians.id', '=', 'pembayaran_dendas.id_pengembalian')
             ->where('pengembalians.id_anggota', '=', $anggota?->id)
             ->get();
         // dd($pengembalian);
@@ -89,6 +90,10 @@ class RiwayatPinjamBukuAnggota extends Controller
             ->join('books', 'books.id', '=', 'pengembalians.id_buku')
             ->where('pengembalians.id_anggota', '=', $anggota?->id)
             ->sum('pengembalians.denda');
+
+        $totalPembayaranDenda = DB::table('pembayaran_dendas')
+            ->where('pembayaran_dendas.id_anggota', '=', $anggota?->id)
+            ->sum('pembayaran_dendas.jumlah_pembayaran');
 
         $totalHariTerlambat = DB::table('pengembalians')
             ->join('books', 'books.id', '=', 'pengembalians.id_buku')
@@ -110,7 +115,7 @@ class RiwayatPinjamBukuAnggota extends Controller
         // dd($detailPengembalian);
 
         // return view('pages.riwayatPinjamBuku.pengembalian_buku', compact('pengembalian', 'detailPengembalian', 'anggota'));
-        return view('pages.riwayatPinjamBuku.pengembalian_buku', compact('pengembalian', 'anggota', 'totalDenda', 'totalHariTerlambat'));
+        return view('pages.riwayatPinjamBuku.pengembalian_buku', compact('pengembalian', 'anggota', 'totalDenda', 'totalHariTerlambat', 'totalPembayaranDenda'));
 
 
         // koding riwayat pengembalian Buku

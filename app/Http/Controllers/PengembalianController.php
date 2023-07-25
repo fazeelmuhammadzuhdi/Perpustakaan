@@ -19,19 +19,27 @@ class PengembalianController extends Controller
         //     ->get();
         // $peminjaman = DB::table('peminjaman')->get();
 
+        // $pengembalian = DB::table('pengembalians')
+        //     ->join('anggotas', 'pengembalians.id_anggota', '=', 'anggotas.id')
+        //     ->join('books', 'pengembalians.id_buku', '=', 'books.id')
+        //     ->join('pembayaran_dendas', 'pengembalians.id', '=', 'pembayaran_dendas.id_pengembalian')
+        //     ->select('pengembalians.*', 'anggotas.*', 'books.*', 'pembayaran_dendas.jumlah_pembayaran')
+        //     // ->select('pengembalians.*', 'anggotas.*', 'books.*')
+        //     ->orderBy('tanggal_pengembalian', 'asc')
+        //     ->get();
+
         $pengembalian = DB::table('pengembalians')
             ->join('anggotas', 'pengembalians.id_anggota', '=', 'anggotas.id')
             ->join('books', 'pengembalians.id_buku', '=', 'books.id')
-            ->select('pengembalians.*', 'anggotas.*', 'books.*')
+            ->leftJoin('pembayaran_dendas', 'pengembalians.id', '=', 'pembayaran_dendas.id_pengembalian')
+            ->select(
+                'pengembalians.*',
+                'anggotas.*',
+                'books.*',
+                'pembayaran_dendas.jumlah_pembayaran'
+            )
             ->orderBy('tanggal_pengembalian', 'asc')
             ->get();
-
-
-
-        // dd($peminjaman);
-        // $tanggalWajibKembali = $peminjaman->first()->tgl_kembali;
-        // $tanggalPengembalian = Carbon::now()->toDateString();
-        // $jumlahHariTerlambat = Carbon::parse($tanggalWajibKembali)->diffInDays($tanggalPengembalian);
 
         return view('pages.pengembalian.index', compact('pengembalian'));
     }

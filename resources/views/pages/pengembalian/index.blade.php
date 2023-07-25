@@ -36,12 +36,12 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Peminjam</th>
-                                        <th>No Isbn</th>
                                         <th>Judul Buku</th>
                                         <th>Jumlah Di Kembalikan</th>
                                         <th>Tgl Pengembalian</th>
                                         <th>Terlambat (Hari)</th>
                                         <th>Denda</th>
+                                        <th>Jumlah Bayar</th>
                                         <th>Detail</th>
                                     </tr>
                                 </thead>
@@ -54,12 +54,14 @@
                                             <tr>
                                                 <td>{{ $i + 1 }}</td>
                                                 <td>{{ $data->nama }}</td>
-                                                <td>{{ $data->no_isbn }}</td>
                                                 <td>{{ $data->judul_buku }}</td>
                                                 <td>{{ $data->qty }}</td>
                                                 <td>{{ date('d F Y', strtotime($data->tanggal_pengembalian)) }}</td>
                                                 <td>{{ $data->jumlah_hari_terlambat }} Hari</td>
                                                 <td>Rp. {{ number_format($data->denda) }}</td>
+                                                <td>Rp. {{ number_format($data->jumlah_pembayaran, 0, '.', '.' ?? '-') }}
+                                                </td>
+
                                                 <td>
                                                     <button class="btn btn-primary btn-sm" data-toggle="modal"
                                                         data-target="#detailModal-{{ $data->id_anggota }}">Detail</button>
@@ -71,28 +73,6 @@
                                         @endif
                                     @endforeach
                                 </tbody>
-
-
-                                {{-- <tbody>
-                                    @foreach ($pengembalian as $i => $data)
-                                        @if ($i == 0 || $data->id_anggota != $pengembalian[$i - 1]->id_anggota)
-                                            <tr>
-                                                <td>{{ $i + 1 }}</td>
-                                                <td>{{ $data->nama }}</td>
-                                                <td>{{ $data->no_isbn }}</td>
-                                                <td>{{ $data->judul_buku }}</td>
-                                                <td>{{ $data->qty }}</td>
-                                                <td>{{ date('d F Y', strtotime($data->tanggal_pengembalian)) }}</td>
-                                                <td>{{ $data->jumlah_hari_terlambat }} Hari</td>
-                                                <td>Rp. {{ number_format($data->denda) }}</td>
-                                                <td>
-                                                    <button class="btn btn-primary btn-sm" data-toggle="modal"
-                                                        data-target="#detailModal-{{ $data->id_anggota }}">Detail</button>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
-                                </tbody> --}}
                             </table>
                         </div>
                     </div>
@@ -108,7 +88,8 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="detailModalLabel">Daftar Data Buku Yang Telah Di Kembalikan Anggota
+                            <h5 class="modal-title" id="detailModalLabel">Daftar Data Buku Yang Telah Di Kembalikan
+                                Anggota
                                 - {{ $data->nama }}</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -116,7 +97,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="modal-body">
-                                <table class="table table-striped tableDetailPengembalian">
+                                <table class="table table-striped tableDetailPengembalian table-responsive">
                                     <thead>
                                         <tr>
                                             <th>No Isbn</th>
@@ -125,6 +106,7 @@
                                             <th>Tgl Pengembalian</th>
                                             <th>Terlambat (Hari)</th>
                                             <th>Denda</th>
+                                            <th>Jumlah Pembayaran</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -141,13 +123,16 @@
                                                     <td>Rp.
                                                         {{ number_format($detail->denda) }}
                                                     </td>
+                                                    <td>Rp.
+                                                        {{ number_format($detail->jumlah_pembayaran) }}
+                                                    </td>
                                                 </tr>
                                             @endif
                                         @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="4"></td>
+                                            <td colspan="3"></td>
                                             <td><strong>Total Hari Terlambat:</strong></td>
                                             <td><strong>{{ $pengembalian->where('id_anggota', $data->id_anggota)->sum('jumlah_hari_terlambat') }}
                                                     Hari</strong></td>
@@ -157,6 +142,13 @@
                                             <td><strong>Total Denda:</strong></td>
                                             <td><strong>Rp.
                                                     {{ number_format($pengembalian->where('id_anggota', $data->id_anggota)->sum('denda')) }}</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5"></td>
+                                            <td><strong>Total Pembayaran:</strong></td>
+                                            <td><strong>Rp.
+                                                    {{ number_format($pengembalian->where('id_anggota', $data->id_anggota)->sum('jumlah_pembayaran')) }}</strong>
                                             </td>
                                         </tr>
                                     </tfoot>
@@ -173,6 +165,8 @@
     @endforeach
     @include('pages.laporan.modal_laporan_pengembalian_buku')
 @endsection
+
+
 @push('after-script')
 
     @if (session('success') == true)

@@ -126,6 +126,16 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item">
+                                <a href="{{ route('pembayarandenda.index') }}"
+                                    class="nav-link {{ Route::is('pembayarandenda.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-shopping-cart"></i>
+                                    <p>
+                                        Data Pembayaran Denda
+                                    </p>
+                                </a>
+                            </li>
+
 
                         </ul>
                     </li>

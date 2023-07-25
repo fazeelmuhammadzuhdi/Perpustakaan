@@ -128,4 +128,22 @@ class LaporanController extends Controller
 
         return view('pages.laporan.pengembalian-buku', compact('laporanPengembalian', 'tglAwal', 'tglAkhir', 'title'));
     }
+
+    public function laporanPembayaranDenda(Request $request)
+    {
+        $tglAwal = $request->input('tglAwal');
+        $tglAkhir = $request->input('tglAkhir');
+        $title = 'Laporan Pembayaran Denda Perpustakaan';
+
+        $laporanPembayaran =
+            DB::table('pembayaran_dendas')
+            ->join('anggotas', 'pembayaran_dendas.id_anggota', '=', 'anggotas.id')
+            ->join('pengembalians', 'pengembalians.id', '=', 'pembayaran_dendas.id_pengembalian')
+            ->select('pengembalians.*', 'anggotas.nama', 'anggotas.kelas', 'pembayaran_dendas.*')
+            ->whereBetween('tanggal_pembayaran', [$tglAwal, $tglAkhir])
+            ->orderBy('anggotas.nama', 'asc')
+            ->get();
+
+        return view('pages.laporan.pembayaran_denda', compact('laporanPembayaran', 'tglAwal', 'tglAkhir', 'title'));
+    }
 }

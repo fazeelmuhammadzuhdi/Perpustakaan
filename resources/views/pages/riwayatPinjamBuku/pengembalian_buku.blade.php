@@ -86,6 +86,7 @@
                                             <th scope="col">Tgl Pengembalian</th>
                                             <th scope="col">Jumlah Hari Terlambat</th>
                                             <th scope="col">Denda</th>
+                                            <th scope="col">Jumlah Pembayaran Denda</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -103,6 +104,7 @@
                                                 <td>{{ date('d F Y', strtotime($data->tanggal_pengembalian)) }}</td>
                                                 <td>{{ $data->jumlah_hari_terlambat }} Hari</td>
                                                 <td>Rp. {{ number_format($data->denda) }}</td>
+                                                <td>Rp. {{ number_format($data->jumlah_pembayaran) }}</td>
                                             </tr>
                                         @endforeach
 
@@ -113,6 +115,10 @@
                                         <tr>
                                             <th colspan="7" class="text-left">Total Denda</th>
                                             <th>Rp. {{ number_format($totalDenda) }}</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="8" class="text-left">Total Pembayaran Denda</th>
+                                            <th>Rp. {{ number_format($totalPembayaranDenda) }}</th>
                                         </tr>
                                     </tbody>
                                 </table>
