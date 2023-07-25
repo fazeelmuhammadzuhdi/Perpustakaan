@@ -11,6 +11,7 @@ use App\Http\Controllers\RakBukuController;
 use App\Http\Controllers\RiwayatPinjamBukuAnggota;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DaftarBukuController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,9 +26,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [HomeController::class, 'landingPage'])->name('landingpage');
 
 Route::prefix('admin')->middleware(['auth', 'user-role:admin,pimpinan'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');

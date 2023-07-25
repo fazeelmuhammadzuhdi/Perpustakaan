@@ -29,4 +29,9 @@ class HomeController extends Controller
     {
         return view('home', ['msg' => 'IAM PIMPINAN']);
     }
+
+    public function landingPage()
+    {
+        return view('landing-page');
+    }
 }
