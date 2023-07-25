@@ -131,5 +131,5 @@ Route::prefix('anggota')->middleware(['auth', 'user-role:anggota'])->group(funct
 
 Route::get('logout', function () {
     Auth::logout();
-    return redirect('login');
+    return redirect()->route('landingpage');
 })->name('logout');
