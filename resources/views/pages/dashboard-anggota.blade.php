@@ -83,7 +83,8 @@
                     Denda Setiap Buku Rp.1.000/Hari.</li>
                 <li class=text-light>Jika Telah Meminjam Buku, Silahkan Pergi Ke Tempat Petugas Untuk Melakukan Konfirmasi
                     dan Pencetakan Bukti Peminjaman.</li>
-                <li class=text-light>Jika Terlambat Mengembalikan Buku dan Mendapat denda, Maka Wajib Langsung Membayar Pada
+                <li class=text-light>Jika Terlambat Mengembalikan Buku dan Mendapat denda, Maka Wajib Langsung Membayar
+                    Denda Kepada
                     Petugas Saat Mengembalikan Buku.</li>
                 <li class=text-light>Pada Saat Mau Mengembalikan Buku Jangan Lupa Membawa Bukti Peminjaman
                 </li>
